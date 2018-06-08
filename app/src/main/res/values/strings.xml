@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_view_header_title">电池医生</string>
+    <string name="nav_title1">电池状况</string>
+    <string name="nav_title2">耗电情况</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <string name="power_time">时间</string>
+    <string name="power_level">电量</string>
+    <string name="power_temp">温度</string>
+    <string name="power_voltage">电压</string>
+    <string name="power_health">健康</string>
+    <string name="power_status">状态</string>
+
+</resources>

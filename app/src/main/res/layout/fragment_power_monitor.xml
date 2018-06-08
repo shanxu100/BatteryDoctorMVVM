@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.gzs11641.myapplication.doctor.viewmodel.PowerMonitorViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/tv_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@{@string/power_time+String.valueOf(viewmodel.now)}" />
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/tv_power_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@{@string/power_level+String.valueOf(viewmodel.level)}" />
+
+        <TextView
+            android:id="@+id/tv_power_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@{@string/power_temp+String.valueOf(viewmodel.temp)}" />
+
+        <TextView
+            android:id="@+id/tv_power_voltage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@{@string/power_voltage+String.valueOf(viewmodel.voltage)}" />
+
+        <TextView
+            android:id="@+id/tv_power_health"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@{@string/power_health+viewmodel.health}" />
+
+        <TextView
+            android:id="@+id/tv_power_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@{@string/power_status+viewmodel.status}" />
+
+    </LinearLayout>
+
+
+</layout>
