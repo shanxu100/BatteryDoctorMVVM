@@ -14,6 +14,7 @@ import com.example.gzs11641.myapplication.doctor.helper.UBCAppUsageStats;
 
 import java.util.List;
 
+
 public class PowerConsumeViewModel extends AndroidViewModel {
 
     private Application application;
@@ -44,7 +45,8 @@ public class PowerConsumeViewModel extends AndroidViewModel {
         if (requestCode == PowerConsumeFragment.REQUEST_CODE_APP_USAGE) {
             AppOpsManager appOps = (AppOpsManager) application.getSystemService(Context.APP_OPS_SERVICE);
             int mode = 0;
-            mode = appOps.checkOpNoThrow("android:get_usage_stats", android.os.Process.myUid(), application.getPackageName());
+
+            mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), application.getPackageName());
             boolean granted = mode == AppOpsManager.MODE_ALLOWED;
             if (!granted) {
                 Toast.makeText(application, "请开启该权限", Toast.LENGTH_SHORT).show();
