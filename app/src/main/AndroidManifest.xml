@@ -7,6 +7,7 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -17,13 +18,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.SecondActivity" />
-        <activity android:name=".doctor.BatteryDoctorActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".doctor.BatteryDoctorActivity"></activity>
         <activity
             android:name=".doctor.BaseActivity"
             android:label="@string/title_activity_base"
@@ -36,7 +31,18 @@
 
         <service
             android:name=".doctor.AppStatusIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".rxJava.RxActivity">
+
+        </activity>
+        <activity android:name=".retrofit.RetrofitActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

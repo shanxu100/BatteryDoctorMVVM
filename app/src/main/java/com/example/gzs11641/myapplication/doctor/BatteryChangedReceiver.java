@@ -3,10 +3,7 @@ package com.example.gzs11641.myapplication.doctor;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.ObservableLong;
 import android.os.BatteryManager;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import com.example.gzs11641.myapplication.doctor.viewmodel.PowerMonitorViewModel;
 

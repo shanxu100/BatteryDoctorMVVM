@@ -6,28 +6,20 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.example.gzs11641.myapplication.R;
 import com.example.gzs11641.myapplication.databinding.FragmentPowerConsumeBinding;
-import com.example.gzs11641.myapplication.databinding.FragmentPowerMonitorBinding;
-import com.example.gzs11641.myapplication.doctor.helper.CheckPermissionUtil;
-import com.example.gzs11641.myapplication.doctor.helper.UBCAppUsageStats;
 import com.example.gzs11641.myapplication.doctor.viewmodel.PowerConsumeViewModel;
-import com.example.gzs11641.myapplication.doctor.viewmodel.PowerMonitorViewModel;
 
 import java.util.List;
 

@@ -41,4 +41,12 @@ dependencies {
     annotationProcessor deps.lifecycle.compiler
     implementation deps.room.runtime
     annotationProcessor deps.room.compiler
+
+    //RxJava
+    implementation deps.rxjava1
+    implementation deps.rx_android1
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+
+
 }

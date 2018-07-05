@@ -1,13 +1,11 @@
 package com.example.gzs11641.myapplication.ui;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.SystemClock;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -15,10 +13,6 @@ import android.widget.TextView;
 
 import com.example.gzs11641.myapplication.R;
 import com.example.gzs11641.myapplication.viewmodel.ChronometerVM;
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 

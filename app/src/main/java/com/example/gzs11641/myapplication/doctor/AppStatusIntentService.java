@@ -2,7 +2,6 @@ package com.example.gzs11641.myapplication.doctor;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.example.gzs11641.myapplication.doctor.helper.UBCAppUsageStats;
