@@ -1,8 +1,12 @@
 package com.example.gzs11641.myapplication.listitem.adapter;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +17,7 @@ import com.example.gzs11641.myapplication.listitem.ViewHolder;
 
 import java.util.List;
 
-public abstract class RecyclerAdpter<T> extends RecyclerView.Adapter<ViewHolder> {
+public abstract class SimpleRecyclerAdpter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     private List<T> mDatas;
 
@@ -24,18 +28,33 @@ public abstract class RecyclerAdpter<T> extends RecyclerView.Adapter<ViewHolder>
     public static final int TYPE_EMPTY = 0;
     public static final int TYPE_NORMAL = 1;
 
-    private static final String TAG = "RecyclerAdpter";
+    private static final String TAG = "SimpleRecyclerAdpter";
 
 
-    public RecyclerAdpter(List<T> mDatas, int layoutId) {
+    public SimpleRecyclerAdpter(List<T> mDatas, int layoutId) {
         this.mDatas = mDatas;
         this.layoutId = layoutId;
     }
 
     public void setDataList(List<T> mDatas) {
-        this.mDatas.clear();
-        this.mDatas.addAll(mDatas);
+        if (this.mDatas!=null){
+            this.mDatas.clear();
+            this.mDatas.addAll(mDatas);
+        }else {
+            this.mDatas=mDatas;
+        }
+
+        notifyDataSetChanged();
     }
+
+    public void customRecyclerView(Context context,RecyclerView recyclerView){
+        //垂直线性布局——类似于list
+//        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new GridLayoutManager(context,2));
+        //添加默认的分割线
+        recyclerView.addItemDecoration(new DividerItemDecoration(context,DividerItemDecoration.VERTICAL));
+    }
+
 
     @Override
     public int getItemViewType(int position) {
