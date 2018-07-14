@@ -3,6 +3,7 @@ package com.example.gzs11641.myapplication.listitem.adapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,40 +16,30 @@ import android.view.ViewGroup;
 import com.example.gzs11641.myapplication.R;
 import com.example.gzs11641.myapplication.listitem.holder.SimpleViewHolder;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static com.example.gzs11641.myapplication.listitem.holder.SimpleViewHolder.TYPE_DEFAULT;
 import static com.example.gzs11641.myapplication.listitem.holder.SimpleViewHolder.TYPE_EMPTY;
 import static com.example.gzs11641.myapplication.listitem.holder.SimpleViewHolder.TYPE_NORMAL;
 
-/**
- * ListView样式，显示单一数据元素
- *
- * @param <T>
- */
-public abstract class SimpleRecyclerAdpter<T> extends RecyclerView.Adapter<SimpleViewHolder> {
+public abstract class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<SimpleViewHolder> {
 
-    private List<T> mDatas;
-
-    private int layoutId;
+    private Map<Class, Integer> paramsMap = new HashMap<>();
+    private List<Object> mDatas;
+    private static final String TAG = "MultiTypeRecyclerAdapter";
 
 
-    private static final String TAG = "SimpleRecyclerAdpter";
+    public MultiTypeRecyclerAdapter(List<Object> dataList, Param... params) {
 
-
-    public SimpleRecyclerAdpter(List<T> mDatas, int layoutId) {
-        this.mDatas = mDatas;
-        this.layoutId = layoutId;
-    }
-
-    public void setDataList(List<T> mDatas) {
-        if (this.mDatas != null) {
-            this.mDatas.clear();
-            this.mDatas.addAll(mDatas);
-        } else {
-            this.mDatas = mDatas;
+        mDatas = dataList;
+        if (params != null) {
+            for (Param param : params) {
+                paramsMap.put(param.clazz, param.itemLayoutId);
+            }
         }
 
-        notifyDataSetChanged();
     }
 
     public void customRecyclerView(Context context, RecyclerView recyclerView) {
@@ -62,35 +53,48 @@ public abstract class SimpleRecyclerAdpter<T> extends RecyclerView.Adapter<Simpl
 
     @Override
     public int getItemViewType(int position) {
-        if (mDatas == null || mDatas.size() == 0) {
-            return TYPE_EMPTY;
+        if (mDatas != null && mDatas.size() != 0) {
+            if (position < mDatas.size()) {
+                Class clazz = mDatas.get(position).getClass();
+                if (paramsMap.containsKey(clazz)) {
+                    return paramsMap.get(clazz);
+                }
+            }
+            return TYPE_DEFAULT;
         }
-        return TYPE_NORMAL;
+        return TYPE_EMPTY;
     }
+
 
     @NonNull
     @Override
     public SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
-        if (viewType == TYPE_NORMAL) {
-            ViewDataBinding binding = DataBindingUtil.inflate(inflater, layoutId, parent, false);
-            SimpleViewHolder simpleViewHolder = new SimpleViewHolder(binding.getRoot(), binding, TYPE_NORMAL);
-            return simpleViewHolder;
-        } else {
-            //viewType==TYPE_EMPTY
+        if (viewType == TYPE_EMPTY) {
             ViewDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.recycler_view_layout_empty, parent, false);
             SimpleViewHolder viewHolder = new SimpleViewHolder(binding.getRoot(), binding, TYPE_EMPTY);
             return viewHolder;
         }
+        if (viewType == TYPE_DEFAULT) {
+            ViewDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.recycler_view_item_default, parent, false);
+            SimpleViewHolder viewHolder = new SimpleViewHolder(binding.getRoot(), binding, TYPE_DEFAULT);
+            return viewHolder;
+        }
+        int resId = viewType;
+        ViewDataBinding binding = DataBindingUtil.inflate(inflater, resId, parent, false);
+        SimpleViewHolder simpleViewHolder = new SimpleViewHolder(binding.getRoot(), binding, TYPE_NORMAL);
+        return simpleViewHolder;
 
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull SimpleViewHolder holder, int position) {
+
         if (holder.getType() == TYPE_EMPTY) {
             Log.e(TAG, "数据为空，显示默认layout");
+        } else if (holder.getType() == TYPE_DEFAULT) {
+            Log.e(TAG, "未知数据类型，显示默认布局");
         } else {
             if (position < mDatas.size()) {
                 onCustomeView(holder.getBinding(), position, mDatas.get(position));
@@ -100,9 +104,9 @@ public abstract class SimpleRecyclerAdpter<T> extends RecyclerView.Adapter<Simpl
             }
         }
 
+
     }
 
-    ;
 
     @Override
     public int getItemCount() {
@@ -113,5 +117,29 @@ public abstract class SimpleRecyclerAdpter<T> extends RecyclerView.Adapter<Simpl
     }
 
 
-    protected abstract void onCustomeView(ViewDataBinding binding, int position, T data);
+    public void setDataList(List<Object> mDatas) {
+        if (this.mDatas != null) {
+            this.mDatas.clear();
+            this.mDatas.addAll(mDatas);
+        } else {
+            this.mDatas = mDatas;
+        }
+
+        notifyDataSetChanged();
+    }
+
+    public static final class Param {
+
+        @IdRes
+        public int itemLayoutId;
+
+        public Class clazz;
+
+        public Param(int itemLayoutId, Class clazz) {
+            this.itemLayoutId = itemLayoutId;
+            this.clazz = clazz;
+        }
+    }
+
+    protected abstract void onCustomeView(ViewDataBinding binding, int position, Object data);
 }
