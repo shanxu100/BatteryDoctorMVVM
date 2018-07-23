@@ -13,9 +13,13 @@ public class SingleWordTable {
 //            StringBuilder sb = new StringBuilder(8192);
             SingleWordTable instance = new SingleWordTable();
             Class clazz = Class.forName(SingleWordTable.class.getName());
-            Field[] f = clazz.getDeclaredFields();
+            Field[] f = clazz.getFields();
             for (Field field : f) {
-                char[] chars = (char[]) field.get(instance);
+                Object object = field.get(instance);
+                if (object == null) {
+                    continue;
+                }
+                char[] chars = (char[]) object;
                 for (char c : chars) {
                     list.add(c + "");
                 }
@@ -25,6 +29,7 @@ public class SingleWordTable {
             e.printStackTrace();
             return list;
         }
+
 
     }
 
