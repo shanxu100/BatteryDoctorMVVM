@@ -130,9 +130,15 @@ public abstract class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<Simp
 
     public static final class Param {
 
+        /**
+         * item 的布局
+         */
         @IdRes
         public int itemLayoutId;
 
+        /**
+         * item 对应的数据.class
+         */
         public Class clazz;
 
         public Param(int itemLayoutId, Class clazz) {
